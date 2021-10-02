@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://CanvasLayer.gd" type="Script" id=1]
 [ext_resource path="res://UI/Black.png" type="Texture" id=2]
+[ext_resource path="res://UI/Button.png" type="Texture" id=3]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 pause_mode = 2
@@ -30,28 +31,75 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ContiueButton" type="Button" parent="VBoxContainer"]
-margin_right = 111.0
-margin_bottom = 20.0
-text = "Continue"
-flat = true
-
-[node name="OptionsButton" type="Button" parent="VBoxContainer"]
-margin_top = 24.0
-margin_right = 111.0
-margin_bottom = 44.0
-text = "Options"
-flat = true
-
-[node name="MenuButton" type="Button" parent="VBoxContainer"]
-margin_top = 48.0
-margin_right = 111.0
-margin_bottom = 68.0
-text = "Return to Menu"
-flat = true
+[node name="ContinueButton" type="TextureButton" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -50.0
+margin_top = 20.0
+margin_right = 50.0
+margin_bottom = 60.0
+texture_normal = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="VBoxContainer/ContiueButton" to="." method="_on_ContiueButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_OptionsButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/MenuButton" to="." method="_on_MenuButton_pressed"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ContinueButton"]
+margin_left = 20.0
+margin_top = 10.0
+margin_right = 90.0
+margin_bottom = 50.0
+text = "Continue"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionsButton" type="TextureButton" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -50.0
+margin_top = -30.0
+margin_right = 50.0
+margin_bottom = 10.0
+texture_normal = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="OptionsButton"]
+margin_left = 26.0068
+margin_top = 9.33258
+margin_right = 86.0068
+margin_bottom = 49.3326
+text = "Options"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuButton" type="TextureButton" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -50.0
+margin_top = -80.0
+margin_right = 50.0
+margin_bottom = -40.0
+texture_normal = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MenuButton"]
+margin_left = 6.0
+margin_top = 9.0
+margin_right = 100.0
+margin_bottom = 30.0
+text = "Back to Menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="ContinueButton" to="." method="_on_ContinueButton_pressed"]
+[connection signal="pressed" from="OptionsButton" to="." method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="MenuButton" to="." method="_on_MenuButton_pressed"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://UI/StartMenu.gd" type="Script" id=1]
+[ext_resource path="res://UI/Button.png" type="Texture" id=2]
 
 [node name="StartMenu" type="Control"]
 anchor_right = 1.0
@@ -23,27 +24,61 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StartButton" type="Button" parent="VBoxContainer"]
-margin_right = 70.0
-margin_bottom = 20.0
+[node name="StartButton" type="TextureButton" parent="VBoxContainer"]
+margin_right = 100.0
+margin_bottom = 32.0
 focus_neighbour_top = NodePath("../QuitButton")
+focus_neighbour_bottom = NodePath("../OptionsButton")
+texture_normal = ExtResource( 2 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/StartButton"]
+margin_left = 35.0
+margin_top = 7.65685
+margin_right = 75.0
+margin_bottom = 39.6568
+mouse_filter = 1
 text = "Start"
-flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="OptionsButton" type="Button" parent="VBoxContainer"]
-margin_top = 24.0
-margin_right = 70.0
-margin_bottom = 44.0
-text = "Options"
-flat = true
-
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
-margin_top = 48.0
-margin_right = 70.0
+[node name="OptionsButton" type="TextureButton" parent="VBoxContainer"]
+margin_top = 36.0
+margin_right = 100.0
 margin_bottom = 68.0
+focus_neighbour_top = NodePath("../StartButton")
+focus_neighbour_bottom = NodePath("../QuitButton")
+texture_normal = ExtResource( 2 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/OptionsButton"]
+margin_left = 24.747
+margin_top = 8.70711
+margin_right = 80.747
+margin_bottom = 40.7071
+mouse_filter = 1
+text = "Options"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuitButton" type="TextureButton" parent="VBoxContainer"]
+margin_top = 72.0
+margin_right = 100.0
+margin_bottom = 104.0
+focus_neighbour_top = NodePath("../OptionsButton")
 focus_neighbour_bottom = NodePath("../StartButton")
+texture_normal = ExtResource( 2 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/QuitButton"]
+margin_left = 35.0
+margin_top = 7.65685
+margin_right = 75.0
+margin_bottom = 39.6568
+mouse_filter = 1
 text = "Quit"
-flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_OptionsButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]

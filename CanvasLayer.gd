@@ -9,7 +9,7 @@ func _input(event):
 		get_tree().paused = !get_tree().paused
 
 
-func _on_ContiueButton_pressed():
+func _on_ContinueButton_pressed():
 	get_tree().paused = false
 	set_visible(false)
 
@@ -28,6 +28,9 @@ func _on_MenuButton_pressed():
 func set_visible(is_visible):
 	for node in get_children():
 		node.visible = is_visible
+
+
+
 
 
 

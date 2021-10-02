@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://UI/OptionsMenu.gd" type="Script" id=1]
+[ext_resource path="res://UI/Button.png" type="Texture" id=2]
 
 [node name="OptionsMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_pivot_offset = Vector2( -110, -90 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -22,25 +24,55 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ControlsButton" type="Button" parent="VBoxContainer"]
-margin_right = 68.0
-margin_bottom = 20.0
+[node name="ControlsButton" type="TextureButton" parent="VBoxContainer"]
+margin_right = 100.0
+margin_bottom = 32.0
+texture_normal = ExtResource( 2 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/ControlsButton"]
+margin_left = 23.3636
+margin_top = 9.57956
+margin_right = 83.3636
+margin_bottom = 49.5796
+mouse_filter = 1
 text = "Controls"
-flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="GraphicsButton" type="Button" parent="VBoxContainer"]
-margin_top = 24.0
-margin_right = 68.0
-margin_bottom = 44.0
-text = "Graphics"
-flat = true
-
-[node name="ExitButton" type="Button" parent="VBoxContainer"]
-margin_top = 48.0
-margin_right = 68.0
+[node name="GraphicsButton" type="TextureButton" parent="VBoxContainer"]
+margin_top = 36.0
+margin_right = 100.0
 margin_bottom = 68.0
+texture_normal = ExtResource( 2 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GraphicsButton"]
+margin_left = 23.3636
+margin_top = 9.57956
+margin_right = 83.3636
+margin_bottom = 49.5796
+mouse_filter = 1
+text = "Graphics"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ExitButton" type="TextureButton" parent="VBoxContainer"]
+margin_top = 72.0
+margin_right = 100.0
+margin_bottom = 104.0
+texture_normal = ExtResource( 2 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/ExitButton"]
+margin_left = 38.0812
+margin_top = 10.0
+margin_right = 98.0812
+margin_bottom = 50.0
+mouse_filter = 1
 text = "Exit"
-flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="OptionsText" type="RichTextLabel" parent="."]
 anchor_left = 0.5

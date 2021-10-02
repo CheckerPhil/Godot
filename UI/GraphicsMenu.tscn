@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://UI/GraphicsMenu.gd" type="Script" id=1]
+[ext_resource path="res://UI/Button.png" type="Texture" id=2]
 
 [node name="GraphicsMenu" type="Control"]
 anchor_right = 1.0
@@ -46,22 +47,29 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="ExitButton" type="Button" parent="."]
+[node name="ExitButton" type="TextureButton" parent="."]
 anchor_left = 0.5
-anchor_top = 0.9
+anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -50.0
-margin_top = -12.0
-margin_right = 44.0
-margin_bottom = -10.0
-text = "Exit"
-flat = true
+margin_top = -40.0
+margin_right = 50.0
+texture_normal = ExtResource( 2 )
 __meta__ = {
-"_edit_use_anchors_": false,
-"_editor_description_": ""
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ExitButton"]
+margin_left = 40.0
+margin_top = 10.0
+margin_right = 80.0
+margin_bottom = 50.0
+mouse_filter = 1
+text = "Exit"
+__meta__ = {
+"_edit_use_anchors_": false
 }
 [connection signal="pressed" from="FullscreenCheckbox" to="." method="_on_FullscreenCheckbox_pressed"]
 [connection signal="pressed" from="VsyncCheckbox" to="." method="_on_VsyncCheckbox_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_ExitButton_pressed"]
-[connection signal="pressed" from="ExitButton" to="." method="_on_Button_pressed"]

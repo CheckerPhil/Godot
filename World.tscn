@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://World/Bush.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://World/Tree.tscn" type="PackedScene" id=9]
 [ext_resource path="res://World/World.gd" type="Script" id=10]
 [ext_resource path="res://DirtCliffTileMap.tscn" type="PackedScene" id=11]
+[ext_resource path="res://FpsCounter.gd" type="Script" id=12]
 
 [sub_resource type="TileSet" id=1]
 0/name = "DirtTileset.png 0"
@@ -628,3 +629,13 @@ position = Vector2( 100, 10 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HealthUI" parent="CanvasLayer" instance=ExtResource( 8 )]
+
+[node name="FpsCounter" type="RichTextLabel" parent="CanvasLayer"]
+margin_left = 200.0
+margin_right = 260.0
+margin_bottom = 40.0
+text = "FPS: "
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
