@@ -831,10 +831,15 @@ stream = ExtResource( 7 )
 anims/Blink = SubResource( 49 )
 anims/Start = SubResource( 50 )
 anims/Stop = SubResource( 51 )
+
+[node name="ShootAttackTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="invincibility_ended" from="Hurtbox" to="." method="_on_Hurtbox_invincibility_ended"]
 [connection signal="invincibility_started" from="Hurtbox" to="." method="_on_Hurtbox_invincibility_started"]
+[connection signal="timeout" from="ShootAttackTimer" to="." method="_on_ShootAttackTimer_timeout"]
 
 [editable path="HitboxPivot/SwordHitbox"]
-
 [editable path="Hurtbox"]

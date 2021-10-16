@@ -24,6 +24,9 @@ onready var swordHitbox = $HitboxPivot/SwordHitbox
 onready var hurtbox = $Hurtbox
 onready var blinkAnimationPlayer = $BlinkAnimationPlayer
 
+export(PackedScene) var DAGGER: PackedScene = preload("res://Effects/Projectiles/Player Dagger.tscn")
+onready var shoot_attack_timer = $ShootAttackTimer
+
 func _ready():
 	randomize()
 	stats.connect("no_health", self, "queue_free")
@@ -40,6 +43,11 @@ func _physics_process(delta):
 		
 		ATTACK:
 			attack_state(delta)
+	
+	if Input.is_action_just_pressed("shoot") and shoot_attack_timer.is_stopped():
+		var dagger_direction = self.global_position.direction_to(get_global_mouse_position())
+		throw_dagger(dagger_direction)
+		print("Test")
 
 func move_state(delta):
 	var input_vector = Vector2.ZERO
@@ -109,6 +117,18 @@ func _on_Hurtbox_invincibility_started():
 func _on_Hurtbox_invincibility_ended():
 	blinkAnimationPlayer.play("Stop")
 
+func throw_dagger(dagger_direction: Vector2):
+	if DAGGER:
+		var dagger = DAGGER.instance()
+		get_tree().current_scene.add_child(dagger)
+		dagger.global_position = self.global_position
+		
+		var dagger_rotation = dagger_direction.angle()
+		dagger.rotation = dagger_rotation
+		
+		shoot_attack_timer.start()
+		print("Test1")
+
 #Save
 func get_save_stats():
 	return {
@@ -117,3 +137,7 @@ func get_save_stats():
 		'x_Pos' : global_transform.origin.x,
 		'y_Pos' : global_transform.origin.y,
 	}
+
+
+func _on_ShootAttackTimer_timeout():
+	print("Test2")
