@@ -47,7 +47,6 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("shoot") and shoot_attack_timer.is_stopped():
 		var dagger_direction = self.global_position.direction_to(get_global_mouse_position())
 		throw_dagger(dagger_direction)
-		print("Test")
 
 func move_state(delta):
 	var input_vector = Vector2.ZERO
@@ -127,7 +126,6 @@ func throw_dagger(dagger_direction: Vector2):
 		dagger.rotation = dagger_rotation
 		
 		shoot_attack_timer.start()
-		print("Test1")
 
 #Save
 func get_save_stats():
@@ -137,7 +135,3 @@ func get_save_stats():
 		'x_Pos' : global_transform.origin.x,
 		'y_Pos' : global_transform.origin.y,
 	}
-
-
-func _on_ShootAttackTimer_timeout():
-	print("Test2")
