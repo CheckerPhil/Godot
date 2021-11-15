@@ -15,6 +15,7 @@ enum {
 
 var velocity = Vector2.ZERO
 var knockback = Vector2.ZERO
+var shake_amount = 1.0
 
 var state = CHASE
 
@@ -79,7 +80,12 @@ func pick_random_state(state_list):
 
 func _on_Hurtbox_area_entered(area):
 	stats.health -= area.damage
-	knockback = area.knockback_vector * 120
+	knockback = area.knockback_vector * 150
+	var camera = get_node("/root/World/Camera2D")
+	camera.set_offset(Vector2( \
+		rand_range(-1.0, 1.0) * shake_amount, \
+		rand_range(-1.0, 1.0) * shake_amount \
+	))
 	hurtbox.create_hit_effect()
 	hurtbox.start_invincibility(0.4)
 
