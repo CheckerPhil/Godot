@@ -5,8 +5,9 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
-		set_visible(!get_tree().paused)
-		get_tree().paused = !get_tree().paused
+		if !get_tree().get_current_scene().get_name().ends_with("Menu"):
+			set_visible(!get_tree().paused)
+			get_tree().paused = !get_tree().paused
 
 
 func _on_ContinueButton_pressed():
