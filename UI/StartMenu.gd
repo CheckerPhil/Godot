@@ -15,3 +15,7 @@ func _on_OptionsButton_pressed():
 
 func _on_QuitButton_pressed():
 	get_tree().quit()
+
+
+func _on_TextureButton_pressed():
+	OS.shell_open("https://discord.gg/fjX2d4dPVE")

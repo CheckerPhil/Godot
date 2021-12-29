@@ -8,6 +8,8 @@ func _input(event):
 		if !get_tree().get_current_scene().get_name().ends_with("Menu"):
 			set_visible(!get_tree().paused)
 			get_tree().paused = !get_tree().paused
+	elif event.is_action_pressed("command"):
+		get_tree().change_scene("res://UI/CommandLine.tscn")
 
 
 func _on_ContinueButton_pressed():

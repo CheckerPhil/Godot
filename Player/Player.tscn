@@ -4,7 +4,7 @@
 [ext_resource path="res://Player/Player.png" type="Texture" id=2]
 [ext_resource path="res://Overlap/Hitbox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Player/SwordHitbox.gd" type="Script" id=4]
-[ext_resource path="res://Shadows/MediumShadow.png" type="Texture" id=5]
+[ext_resource path="res://Shadows/SmallShadow.png" type="Texture" id=5]
 [ext_resource path="res://Overlap/Hurtbox.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Music and Sounds/Swipe.wav" type="AudioStream" id=7]
 [ext_resource path="res://Music and Sounds/Evade.wav" type="AudioStream" id=8]
@@ -555,7 +555,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=17]
-length = 0.6
+length = 0.8
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -564,10 +564,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 1, 2, 3, 4, 5, 0 ]
+"values": [ 1, 2, 3, 0 ]
 }
 
 [sub_resource type="Animation" id=18]
@@ -706,7 +706,7 @@ states/Idle/position = Vector2( 196, 137 )
 states/Roll/node = SubResource( 33 )
 states/Roll/position = Vector2( 196, 34 )
 states/Run/node = SubResource( 38 )
-states/Run/position = Vector2( 374, 137 )
+states/Run/position = Vector2( 387, 154 )
 transitions = [ "Idle", "Run", SubResource( 39 ), "Run", "Idle", SubResource( 40 ), "Idle", "Attack", SubResource( 41 ), "Attack", "Idle", SubResource( 42 ), "Roll", "Idle", SubResource( 43 ), "Idle", "Roll", SubResource( 44 ) ]
 start_node = "Idle"
 graph_offset = Vector2( -134, 134.895 )
@@ -767,7 +767,7 @@ material = SubResource( 1 )
 position = Vector2( 0, -9 )
 texture = ExtResource( 2 )
 hframes = 60
-frame = 36
+frame = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.5708
@@ -798,7 +798,7 @@ parameters/playback = SubResource( 46 )
 parameters/Attack/blend_position = Vector2( -0.00118065, 0.00635839 )
 parameters/Idle/blend_position = Vector2( 0, 1 )
 parameters/Roll/blend_position = Vector2( 0, 1 )
-parameters/Run/blend_position = Vector2( 0, 1 )
+parameters/Run/blend_position = Vector2( -0.00643498, -0.0190752 )
 
 [node name="HitboxPivot" type="Position2D" parent="."]
 position = Vector2( 0, -4 )
