@@ -16,6 +16,7 @@ var state = MOVE
 var velocity = Vector2.ZERO
 var roll_vector = Vector2.DOWN
 var stats = PlayerStats
+var is_master = false
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
@@ -34,19 +35,34 @@ func _ready():
 	swordHitbox.knockback_vector = roll_vector
 
 func _physics_process(delta):
-	match state:
-		MOVE:
-			move_state(delta)
+	if is_master && Settings.multiplayer_start == true:
+		match state:
+			MOVE:
+				move_state(delta)
+			
+			ROLL:
+				roll_state(delta)
+			
+			ATTACK:
+				attack_state(delta)
 		
-		ROLL:
-			roll_state(delta)
+		if Input.is_action_just_pressed("shoot") and shoot_attack_timer.is_stopped():
+			var dagger_direction = self.global_position.direction_to(get_global_mouse_position())
+			throw_dagger(dagger_direction)
+	else:
+		match state:
+			MOVE:
+				move_state(delta)
+			
+			ROLL:
+				roll_state(delta)
+			
+			ATTACK:
+				attack_state(delta)
 		
-		ATTACK:
-			attack_state(delta)
-	
-	if Input.is_action_just_pressed("shoot") and shoot_attack_timer.is_stopped():
-		var dagger_direction = self.global_position.direction_to(get_global_mouse_position())
-		throw_dagger(dagger_direction)
+		if Input.is_action_just_pressed("shoot") and shoot_attack_timer.is_stopped():
+			var dagger_direction = self.global_position.direction_to(get_global_mouse_position())
+			throw_dagger(dagger_direction)
 
 func move_state(delta):
 	var input_vector = Vector2.ZERO
@@ -96,6 +112,8 @@ func attack_state(_delta):
 
 func move():
 	velocity = move_and_slide(velocity)
+	if Settings.multiplayer_start == true:
+		rpc_unreliable("set_pos", position)
 
 func roll_animation_finished():
 	velocity = velocity * 0.8
@@ -127,6 +145,13 @@ func throw_dagger(dagger_direction: Vector2):
 		dagger.rotation = dagger_rotation
 		
 		shoot_attack_timer.start()
+
+#Local Multiplayer
+func initialize(id):
+	is_master = id == Autoload.net_id
+
+remote func set_pos(pos):
+	position = pos
 
 #Save
 func get_save_stats():

@@ -18,6 +18,8 @@ func _on_Input_text_entered(new_text):
 	elif new_text == prefix + "fps":
 		var text = "FPS: " + String(Engine.get_frames_per_second())
 		output_text(text)
+	elif new_text == prefix + "noai":
+		Settings.ai = false
 	elif new_text == prefix + "quit":
 		get_tree().quit(99)
 	elif new_text == "Soos ist ein geiler Minecraft Server":

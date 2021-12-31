@@ -33,29 +33,29 @@ func _ready():
 func _physics_process(delta):
 	knockback = knockback.move_toward(Vector2.ZERO, 200 * delta)
 	knockback = move_and_slide(knockback)
-	
-	match state:
-		IDLE:
-			velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
-			seek_player()
-			
-			if wandercontroller.get_time_left() == 0:
-				update_wander()
-		WANDER:
-			seek_player()
-			if wandercontroller.get_time_left() == 0:
-				update_wander()
-			
-			accelerate_towards_point(wandercontroller.target_position, delta)
-			
-			if global_position.distance_to(wandercontroller.target_position) <= WANDER_TARGET_RANGE:
-				update_wander()
-		CHASE:
-			var player = playerDetectionZone.player
-			if player != null:
-				accelerate_towards_point(player.global_position, delta)
-			else:
-				state = IDLE
+	if Settings.ai == true:
+		match state:
+			IDLE:
+				velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
+				seek_player()
+				
+				if wandercontroller.get_time_left() == 0:
+					update_wander()
+			WANDER:
+				seek_player()
+				if wandercontroller.get_time_left() == 0:
+					update_wander()
+				
+				accelerate_towards_point(wandercontroller.target_position, delta)
+				
+				if global_position.distance_to(wandercontroller.target_position) <= WANDER_TARGET_RANGE:
+					update_wander()
+			CHASE:
+				var player = playerDetectionZone.player
+				if player != null:
+					accelerate_towards_point(player.global_position, delta)
+				else:
+					state = IDLE
 
 	if softCollision.is_colliding():
 		velocity = softCollision.get_push_vector() * delta * 400

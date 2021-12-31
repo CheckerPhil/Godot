@@ -37,6 +37,7 @@ config/icon="res://icon.png"
 PlayerStats="*res://Player/PlayerStats.tscn"
 PauseMenu="*res://UI/Pause.tscn"
 Settings="*res://Settings.tscn"
+Autoload="*res://autoload.gd"
 
 [display]
 

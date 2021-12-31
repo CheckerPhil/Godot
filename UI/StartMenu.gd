@@ -2,7 +2,7 @@ extends Control
 
 
 func _ready():
-	$VBoxContainer/StartButton.grab_focus()
+	$VBoxContainer/SingleplayerButton.grab_focus()
 
 func _on_StartButton_pressed():
 # warning-ignore:return_value_discarded
@@ -19,3 +19,7 @@ func _on_QuitButton_pressed():
 
 func _on_TextureButton_pressed():
 	OS.shell_open("https://discord.gg/fjX2d4dPVE")
+
+
+func _on_MultiplayerButton_pressed():
+	get_tree().change_scene("res://UI/MultiplayerMenu.tscn")
