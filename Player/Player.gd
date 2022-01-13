@@ -2,9 +2,9 @@ extends KinematicBody2D
 
 export var ACCELERATION = 500
 export var MAX_SPEED = 80
-export var ROLL_SPEED= 150
+export var ROLL_SPEED= 200
 export var FRICTION = 500
-export var boost = 1
+export var sprintboost = 1
 
 enum {
 	MOVE,
@@ -18,9 +18,10 @@ var roll_vector = Vector2.DOWN
 var stats = PlayerStats
 var is_master = false
 
-onready var animationPlayer = $AnimationPlayer
-onready var animationTree = $AnimationTree
-onready var animationState = animationTree.get("parameters/playback")
+onready var walkPlayer = $Animations/WalkPlayer
+onready var rollPlayer = $Animations/DashPlayer
+#onready var animationTree = $AnimationTree
+#onready var animationState = animationTree.get("parameters/playback")
 onready var swordHitbox = $HitboxPivot/SwordHitbox
 onready var hurtbox = $Hurtbox
 onready var blinkAnimationPlayer = $BlinkAnimationPlayer
@@ -31,7 +32,7 @@ onready var shoot_attack_timer = $ShootAttackTimer
 func _ready():
 	randomize()
 	stats.connect("no_health", self, "queue_free")
-	animationTree.active = true
+	#animationTree.active = true
 	swordHitbox.knockback_vector = roll_vector
 
 func _physics_process(delta):
@@ -72,23 +73,23 @@ func move_state(delta):
 	
 	#Sprinting
 	if Input.is_action_just_pressed("sprint"):
-		boost += 0.7
+		sprintboost = 1.7
 	if Input.is_action_just_released("sprint"):
-		if boost > 1:
-			boost -= 0.7
+		sprintboost = 1
 
 	
 	if input_vector != Vector2.ZERO:
 		roll_vector = input_vector
 		swordHitbox.knockback_vector = input_vector
-		animationTree.set("parameters/Idle/blend_position", input_vector)
-		animationTree.set("parameters/Run/blend_position", input_vector)
-		animationTree.set("parameters/Attack/blend_position", input_vector)
-		animationTree.set("parameters/Roll/blend_position", input_vector)
-		animationState.travel("Run")
-		velocity = velocity.move_toward(input_vector * MAX_SPEED * boost, ACCELERATION * delta)
+		#animationTree.set("parameters/Idle/blend_position", input_vector)
+		#animationTree.set("parameters/Run/blend_position", input_vector)
+		#animationTree.set("parameters/Attack/blend_position", input_vector)
+		#animationTree.set("parameters/Roll/blend_position", input_vector)
+		#animationState.travel("Run")
+		velocity = velocity.move_toward(input_vector * MAX_SPEED * sprintboost, ACCELERATION * delta)
 	else:
-		animationState.travel("Idle")
+		walkPlayer.play("Idle")
+		#animationState.travel("Idle")
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	
 	move()
@@ -96,26 +97,27 @@ func move_state(delta):
 	if Input.is_action_just_pressed("roll"):
 		state = ROLL
 	
-	if Input.is_action_just_pressed("attack"):
-		state = ATTACK
+	#if Input.is_action_just_pressed("attack"):
+		#state = ATTACK
 
 func roll_state(_delta):
 	velocity = roll_vector * ROLL_SPEED
-	animationState.travel("Roll")
+	rollPlayer.play("Dash")
+	#animationState.travel("Roll")
 	hurtbox.start_invincibility(0.5)
 	move()
-	boost = 1
 
 func attack_state(_delta):
 	velocity = Vector2.ZERO
-	animationState.travel("Attack")
+	#animationState.travel("Attack")
 
 func move():
 	velocity = move_and_slide(velocity)
+	walkPlayer.play("Walk")
 	if Settings.multiplayer_start == true:
 		rpc_unreliable("set_pos", position)
 
-func roll_animation_finished():
+func _on_DashPlayer_animation_finished(anim_name):
 	velocity = velocity * 0.8
 	state = MOVE
 

@@ -14,6 +14,7 @@ func _on_OptionsButton_pressed():
 
 
 func _on_QuitButton_pressed():
+	print("Quiting using Main Menu (ExitCode: 0)")
 	get_tree().quit()
 
 

@@ -29,7 +29,7 @@ func create_hit_effect():
 	main.add_child(effect)
 	effect.global_position = global_position
 	
-	var camera = get_node("/root/World/Camera2D")
+	var camera = get_node("/root/World/YSort/Player/Camera2D")
 	camera.set_offset(Vector2( \
 		rand_range(-1.0, 1.0) * shake_amount, \
 		rand_range(-1.0, 1.0) * shake_amount \

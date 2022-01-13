@@ -23,9 +23,12 @@ func _on_Input_text_entered(new_text):
 		var text = "AI turned off"
 		output_text(text)
 	elif new_text == prefix + "quit":
-		var text = "Quitting using Console..."
+		var text = "Quitting using Console... (ExitCode: 99)"
 		output_text(text)
 		get_tree().quit(99)
 	elif new_text == "Soos ist ein geiler Minecraft Server":
 		OS.shell_open("https://soos-network.github.io/Soos-Website/")
+	else:
+		var text = "Unknown Command: " + new_text
+		output_text(text)
 	input_box.clear()

@@ -26,6 +26,7 @@ onready var hurtbox = $Hurtbox
 onready var softCollision = $SoftCollision
 onready var wandercontroller = $WanderController
 onready var animationPlayer = $AnimationPlayer
+onready var walkPlayer = $Animations/WalkPlayer
 
 func _ready():
 	state = pick_random_state([IDLE, WANDER])
@@ -38,11 +39,13 @@ func _physics_process(delta):
 			IDLE:
 				velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 				seek_player()
+				walkPlayer.play("Idle")
 				
 				if wandercontroller.get_time_left() == 0:
 					update_wander()
 			WANDER:
 				seek_player()
+				walkPlayer.play("Walk")
 				if wandercontroller.get_time_left() == 0:
 					update_wander()
 				
@@ -52,6 +55,7 @@ func _physics_process(delta):
 					update_wander()
 			CHASE:
 				var player = playerDetectionZone.player
+				walkPlayer.play("Walk")
 				if player != null:
 					accelerate_towards_point(player.global_position, delta)
 				else:
@@ -64,7 +68,7 @@ func _physics_process(delta):
 func accelerate_towards_point(point, delta):
 	var direction = global_position.direction_to(point)
 	velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta)
-	sprite.flip_h = velocity.x < 0
+	#sprite.flip_h = velocity.x < 0
 
 func update_wander():
 	state = pick_random_state([IDLE, WANDER])
@@ -81,7 +85,7 @@ func pick_random_state(state_list):
 func _on_Hurtbox_area_entered(area):
 	stats.health -= area.damage
 	knockback = area.knockback_vector * 150
-	var camera = get_node("/root/World/Camera2D")
+	var camera = get_node("/root/World/YSort/Player/Camera2D")
 	camera.set_offset(Vector2( \
 		rand_range(-1.0, 1.0) * shake_amount, \
 		rand_range(-1.0, 1.0) * shake_amount \
