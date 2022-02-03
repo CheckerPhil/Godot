@@ -2,6 +2,7 @@ extends Node2D
 
 onready var path = $DirtPathTileMap
 onready var singleplayer = $Player
+onready var stone_item = preload("res://Items/StoneItem.tscn")
 
 const CHUNK_WIDTH = 64
 const CHUNK_HEIGHT = 64
@@ -48,6 +49,10 @@ func _physics_process(delta):
 		var clicked_map_pos = $TileMap.world_to_map(get_global_mouse_position() / scale)
 		$TileMap.set_cell(clicked_map_pos.x,clicked_map_pos.y, TILES.grass, false, false, false, $TileMap.get_cell_autotile_coord(clicked_map_pos.x, clicked_map_pos.y))
 		$TileMap.update_bitmask_area(Vector2(clicked_map_pos.x, clicked_map_pos.y))
+		var scene = load("res://Items/StoneItem.tscn")
+		var item = scene.instance()
+		add_child(item)
+
 
 func create_player(id):
 	var a = player.instance()

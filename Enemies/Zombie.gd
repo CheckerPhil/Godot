@@ -19,7 +19,6 @@ var shake_amount = 1.0
 
 var state = CHASE
 
-onready var sprite = $AnimatedSprite
 onready var stats = $Stats
 onready var playerDetectionZone = $PlayerDetectionZone
 onready var hurtbox = $Hurtbox

@@ -18,10 +18,10 @@ shader_param/active = false
 [sub_resource type="CircleShape2D" id=2]
 radius = 3.92546
 
-[sub_resource type="Animation" id=25]
+[sub_resource type="Animation" id=3]
 resource_name = "Idle"
 
-[sub_resource type="Animation" id=24]
+[sub_resource type="Animation" id=4]
 resource_name = "Walk"
 length = 0.4
 tracks/0/type = "value"
@@ -49,26 +49,24 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 0.4, 0.4 ), Vector2( 0.6, 0.6 ), Vector2( 0.4, 0.4 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="CapsuleShape2D" id=3]
+[sub_resource type="CapsuleShape2D" id=5]
 radius = 7.0
 height = 6.0
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=6]
 radius = 71.8732
 
-[sub_resource type="CircleShape2D" id=5]
+[sub_resource type="CircleShape2D" id=7]
 radius = 3.26894
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=8]
 radius = 5.09818
 
-[sub_resource type="Animation" id=7]
-resource_name = "Start"
+[sub_resource type="Animation" id=9]
 length = 0.2
 loop = true
 
-[sub_resource type="Animation" id=8]
-resource_name = "Stop"
+[sub_resource type="Animation" id=10]
 length = 0.1
 
 [node name="Bat" type="KinematicBody2D"]
@@ -97,8 +95,8 @@ shape = SubResource( 2 )
 [node name="Animations" type="Node" parent="."]
 
 [node name="WalkPlayer" type="AnimationPlayer" parent="Animations"]
-anims/Idle = SubResource( 25 )
-anims/Walk = SubResource( 24 )
+anims/Idle = SubResource( 3 )
+anims/Walk = SubResource( 4 )
 __meta__ = {
 "_editor_description_": ""
 }
@@ -109,7 +107,7 @@ collision_layer = 8
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2( 0, -13 )
-shape = SubResource( 3 )
+shape = SubResource( 5 )
 
 [node name="Stats" parent="." instance=ExtResource( 5 )]
 max_health = 2
@@ -118,7 +116,7 @@ max_health = 2
 
 [node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
 position = Vector2( 0, 0.117985 )
-shape = SubResource( 4 )
+shape = SubResource( 6 )
 
 [node name="Hitbox" parent="." instance=ExtResource( 7 )]
 position = Vector2( -0.353951, 16.5178 )
@@ -126,18 +124,18 @@ collision_mask = 4
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2( 0.0150433, -14.9062 )
-shape = SubResource( 5 )
+shape = SubResource( 7 )
 
 [node name="SoftCollision" parent="." instance=ExtResource( 8 )]
 
 [node name="CollisionShape2D" parent="SoftCollision" index="0"]
-shape = SubResource( 6 )
+shape = SubResource( 8 )
 
 [node name="WanderController" parent="." instance=ExtResource( 9 )]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Start = SubResource( 7 )
-anims/Stop = SubResource( 8 )
+anims/Start = SubResource( 9 )
+anims/Stop = SubResource( 10 )
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="invincibility_ended" from="Hurtbox" to="." method="_on_Hurtbox_invincibility_ended"]
 [connection signal="invincibility_started" from="Hurtbox" to="." method="_on_Hurtbox_invincibility_started"]

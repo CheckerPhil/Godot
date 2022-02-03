@@ -4,6 +4,9 @@ export var damage = 1
 var knockback_vector = Vector2.ZERO
 export(int) var speed = 100
 
+func _ready():
+	$AnimationPlayer.play("Shoot")
+	
 func _physics_process(delta):
 	var direction = Vector2.RIGHT.rotated(rotation)
 	global_position += speed * direction * delta
