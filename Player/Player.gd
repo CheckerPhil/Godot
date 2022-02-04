@@ -20,9 +20,11 @@ var is_master = false
 
 onready var walkPlayer = $Animations/WalkPlayer
 onready var rollPlayer = $Animations/DashPlayer
+onready var attackPlayer = $Animations/AttackPlayer
 #onready var animationTree = $AnimationTree
 #onready var animationState = animationTree.get("parameters/playback")
 onready var swordHitbox = $HitboxPivot/SwordHitbox
+onready var swordHitboxCollision = $HitboxPivot/SwordHitbox/CollisionShape2D
 onready var hurtbox = $Hurtbox
 onready var blinkAnimationPlayer = $BlinkAnimationPlayer
 
@@ -97,19 +99,24 @@ func move_state(delta):
 	if Input.is_action_just_pressed("roll"):
 		state = ROLL
 	
-	#if Input.is_action_just_pressed("attack"):
-		#state = ATTACK
+	if Input.is_action_just_pressed("attack"):
+		swordHitboxCollision.disabled = false;
+		attackPlayer.play("Sword Attack")
 
 func roll_state(_delta):
 	velocity = roll_vector * ROLL_SPEED
+	if Settings.AttackDash == true:
+		swordHitboxCollision.disabled = false;
 	rollPlayer.play("Dash")
 	#animationState.travel("Roll")
 	hurtbox.start_invincibility(0.5)
 	move()
 
 func attack_state(_delta):
-	velocity = Vector2.ZERO
-	#animationState.travel("Attack")
+	#velocity = Vector2.ZERO
+	#swordHitboxCollision.disabled = false;
+	#attackPlayer.play("Sword Attack")
+	pass
 
 func move():
 	velocity = move_and_slide(velocity)
@@ -119,11 +126,13 @@ func move():
 
 func _on_DashPlayer_animation_finished(anim_name):
 	velocity = velocity * 0.8
+	swordHitboxCollision.disabled = true;
 	state = MOVE
 
-func attack_animation_finished():
+func _on_AttackPlayer_animation_finished(anim_name):
+	swordHitboxCollision.disabled = true
 	state = MOVE
-
+	
 func _on_Hurtbox_area_entered(area):
 	stats.health -= area.damage
 	hurtbox.start_invincibility(0.6)

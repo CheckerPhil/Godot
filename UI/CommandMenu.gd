@@ -22,6 +22,10 @@ func _on_Input_text_entered(new_text):
 		Settings.ai = false
 		var text = "AI turned off"
 		output_text(text)
+	elif new_text == prefix + "attackdash":
+		Settings.AttackDash = !Settings.AttackDash
+		var text = "Attackdash toggeled"
+		output_text(text)
 	elif new_text == prefix + "quit":
 		var text = "Quitting using Console... (ExitCode: 99)"
 		output_text(text)

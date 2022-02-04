@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Shadows/SmallShadow.png" type="Texture" id=5]
 [ext_resource path="res://Overlap/Hurtbox.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Music and Sounds/Swipe.wav" type="AudioStream" id=7]
+[ext_resource path="res://Items/Sword.png" type="Texture" id=8]
 [ext_resource path="res://Shaders/WhiteColor.shader" type="Shader" id=9]
 
 [sub_resource type="ShaderMaterial" id=1]
@@ -64,18 +65,56 @@ tracks/0/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 5, 5 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="CapsuleShape2D" id=6]
-height = 12.0
+[sub_resource type="Animation" id=6]
+resource_name = "Sword Attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Sword:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Sword:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 60.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../Sword:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 5.75913, -5.71231 ), Vector2( 6.78922, -3.69895 ), Vector2( 5.75913, -5.71231 ) ]
+}
 
 [sub_resource type="CapsuleShape2D" id=7]
+height = 12.0
+
+[sub_resource type="CapsuleShape2D" id=8]
 radius = 5.02104
 height = 7.29734
 
-[sub_resource type="Animation" id=8]
-resource_name = "Blink"
-
 [sub_resource type="Animation" id=9]
-resource_name = "Start"
+
+[sub_resource type="Animation" id=10]
 length = 0.2
 loop = true
 tracks/0/type = "value"
@@ -103,8 +142,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.6 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=10]
-resource_name = "Stop"
+[sub_resource type="Animation" id=11]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:material:shader_param/active")
@@ -144,6 +182,9 @@ anims/Walk = SubResource( 4 )
 [node name="DashPlayer" type="AnimationPlayer" parent="Animations"]
 anims/Dash = SubResource( 5 )
 
+[node name="AttackPlayer" type="AnimationPlayer" parent="Animations"]
+"anims/Sword Attack" = SubResource( 6 )
+
 [node name="HitboxPivot" type="Position2D" parent="."]
 position = Vector2( 0, -4 )
 rotation = 1.5708
@@ -154,7 +195,9 @@ collision_mask = 8
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" parent="HitboxPivot/SwordHitbox" index="0"]
-shape = SubResource( 6 )
+position = Vector2( -12, 0 )
+scale = Vector2( 1.5, 1 )
+shape = SubResource( 7 )
 disabled = true
 
 [node name="Shadow" type="Sprite" parent="."]
@@ -166,20 +209,26 @@ collision_layer = 4
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2( -0.152542, -3.90432 )
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 
 [node name="BlinkAnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Blink = SubResource( 8 )
-anims/Start = SubResource( 9 )
-anims/Stop = SubResource( 10 )
+anims/Blink = SubResource( 9 )
+anims/Start = SubResource( 10 )
+anims/Stop = SubResource( 11 )
 
 [node name="ShootAttackTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="Sword" type="Sprite" parent="."]
+position = Vector2( 5.75913, -5.71231 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 8 )
 [connection signal="animation_finished" from="Animations/DashPlayer" to="." method="_on_DashPlayer_animation_finished"]
+[connection signal="animation_finished" from="Animations/AttackPlayer" to="." method="_on_AttackPlayer_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="invincibility_ended" from="Hurtbox" to="." method="_on_Hurtbox_invincibility_ended"]
 [connection signal="invincibility_started" from="Hurtbox" to="." method="_on_Hurtbox_invincibility_started"]

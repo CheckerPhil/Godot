@@ -3,6 +3,7 @@ extends Node
 var cpuParticles = false
 var ai = true
 var multiplayer_start = false
+var AttackDash = false
 
 func _ready():
 	#START PROGRESS

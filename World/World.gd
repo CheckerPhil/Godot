@@ -18,6 +18,9 @@ var open_simplex_noise
 export(String) var world_seed = "Hello Godot!"
 
 func _ready():
+	if PlayerStats.health <= 0:
+		singleplayer.queue_free()
+		
 	if Settings.multiplayer_start == true:
 		singleplayer.queue_free()
 		Autoload.net_id = get_tree().get_network_unique_id()
@@ -45,13 +48,14 @@ func _physics_process(delta):
 		#path.set_cell(clicked_map_pos.x,clicked_map_pos.y, path.tile_set.get_tiles_ids()[0], false, false, false, path.get_cell_autotile_coord(clicked_map_pos.x, clicked_map_pos.y))
 		#path.update_bitmask_area(Vector2(clicked_map_pos.x, clicked_map_pos.y))
 	
-	if Input.is_mouse_button_pressed(1):
-		var clicked_map_pos = $TileMap.world_to_map(get_global_mouse_position() / scale)
-		$TileMap.set_cell(clicked_map_pos.x,clicked_map_pos.y, TILES.grass, false, false, false, $TileMap.get_cell_autotile_coord(clicked_map_pos.x, clicked_map_pos.y))
-		$TileMap.update_bitmask_area(Vector2(clicked_map_pos.x, clicked_map_pos.y))
-		var scene = load("res://Items/StoneItem.tscn")
-		var item = scene.instance()
-		add_child(item)
+	#if Input.is_mouse_button_pressed(1):
+		#var clicked_map_pos = $TileMap.world_to_map(get_global_mouse_position() / scale)
+		#$TileMap.set_cell(clicked_map_pos.x,clicked_map_pos.y, TILES.grass, false, false, false, $TileMap.get_cell_autotile_coord(clicked_map_pos.x, clicked_map_pos.y))
+		#$TileMap.update_bitmask_area(Vector2(clicked_map_pos.x, clicked_map_pos.y))
+		#var scene = load("res://Items/StoneItem.tscn")
+		#var item = scene.instance()
+		#add_child(item)
+		pass
 
 
 func create_player(id):
@@ -65,7 +69,8 @@ func create_player(id):
 func _generate_world():
 	for x in CHUNK_WIDTH:
 		for y in CHUNK_HEIGHT:
-			$TileMap.set_cellv(Vector2(x - CHUNK_WIDTH / 2, y - CHUNK_HEIGHT / 2), _get_tile_index(open_simplex_noise.get_noise_2d(float(x), float(y))))
+			#$TileMap.set_cellv(Vector2(x - CHUNK_WIDTH / 2, y - CHUNK_HEIGHT / 2), _get_tile_index(open_simplex_noise.get_noise_2d(float(x), float(y))))
+			pass
 	$TileMap.update_bitmask_region()
 
 func _get_tile_index(noise_sample):
