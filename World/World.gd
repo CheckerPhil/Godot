@@ -3,6 +3,7 @@ extends Node2D
 onready var path = $DirtPathTileMap
 onready var singleplayer = $Player
 onready var stone_item = preload("res://Items/StoneItem.tscn")
+onready var timer = $Timer
 
 const CHUNK_WIDTH = 64
 const CHUNK_HEIGHT = 64
@@ -18,8 +19,9 @@ var open_simplex_noise
 export(String) var world_seed = "Hello Godot!"
 
 func _ready():
-	if PlayerStats.health <= 0:
-		singleplayer.queue_free()
+	#if PlayerStats.health <= 0:
+	
+	timer.start(30)
 		
 	if Settings.multiplayer_start == true:
 		singleplayer.queue_free()
@@ -79,3 +81,24 @@ func _get_tile_index(noise_sample):
 	if noise_sample < 0.4:
 		return TILES.rock
 	return TILES.grass
+	
+func spawn():
+	var rand = RandomNumberGenerator.new()
+	var enemyscene = load("res://Enemies/Zombie.tscn")
+	
+	var scree_size = get_viewport().get_visible_rect().size
+	
+	for i in range(0,Settings.difficulty * 10):
+		var enemy = enemyscene.instance();
+		rand.randomize()
+		var x = rand.randf_range(0, scree_size.x)
+		rand.randomize()
+		var y = rand.randf_range(0, scree_size.y)
+		enemy.position.x = x
+		enemy.position.y = y
+		add_child(enemy)
+
+
+func _on_Timer_timeout():
+	spawn()
+	timer.start(30)

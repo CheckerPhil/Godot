@@ -27,6 +27,7 @@ onready var swordHitbox = $HitboxPivot/SwordHitbox
 onready var swordHitboxCollision = $HitboxPivot/SwordHitbox/CollisionShape2D
 onready var hurtbox = $Hurtbox
 onready var blinkAnimationPlayer = $BlinkAnimationPlayer
+onready var sword: Node2D = get_node("Sword")
 
 export(PackedScene) var DAGGER: PackedScene = preload("res://Effects/Projectiles/Player Dagger.tscn")
 onready var shoot_attack_timer = $ShootAttackTimer
@@ -66,6 +67,13 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("shoot") and shoot_attack_timer.is_stopped():
 			var dagger_direction = self.global_position.direction_to(get_global_mouse_position())
 			throw_dagger(dagger_direction)
+			
+		var mouse_direction: Vector2 = (get_global_mouse_position() - global_position).normalized()
+		sword.rotation = mouse_direction.angle()
+		if sword.scale.y == 1 and mouse_direction.x < 0:
+			sword.scale.y = -1
+		elif sword.scale.y == -1 and mouse_direction.x > 0:
+			sword.scale.y = 1
 
 func move_state(delta):
 	var input_vector = Vector2.ZERO

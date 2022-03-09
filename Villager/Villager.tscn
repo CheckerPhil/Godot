@@ -1,0 +1,148 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://Overlap/Hurtbox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Shaders/WhiteColor.shader" type="Shader" id=2]
+[ext_resource path="res://Overlap/Hitbox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Enemies/WanderController.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Shadows/SmallShadow.png" type="Texture" id=5]
+[ext_resource path="res://Villager/Vilager.gd" type="Script" id=6]
+[ext_resource path="res://Overlap/SoftCollision.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Villager/Villager.png" type="Texture" id=8]
+[ext_resource path="res://Stats.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Enemies/PlayerDetectionZone.tscn" type="PackedScene" id=10]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 2 )
+shader_param/active = false
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 3.92546
+
+[sub_resource type="Animation" id=3]
+resource_name = "Idle"
+
+[sub_resource type="Animation" id=4]
+resource_name = "Walk"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -17.1, 0.0, 17.1, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 0.4, 0.4 ), Vector2( 0.6, 0.6 ), Vector2( 0.4, 0.4 ), Vector2( 0.5, 0.5 ) ]
+}
+
+[sub_resource type="CapsuleShape2D" id=5]
+radius = 7.0
+height = 6.0
+
+[sub_resource type="CircleShape2D" id=7]
+radius = 3.26894
+
+[sub_resource type="CircleShape2D" id=8]
+radius = 5.09818
+
+[sub_resource type="Animation" id=9]
+length = 0.2
+loop = true
+
+[sub_resource type="Animation" id=10]
+length = 0.1
+
+[sub_resource type="CircleShape2D" id=11]
+
+[node name="Villager" type="KinematicBody2D"]
+collision_layer = 17
+collision_mask = 17
+script = ExtResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 1 )
+position = Vector2( 0, -4 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 8 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="ShadowSprite" type="Sprite" parent="."]
+texture = ExtResource( 5 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.235966, 0 )
+shape = SubResource( 2 )
+
+[node name="Animations" type="Node" parent="."]
+
+[node name="WalkPlayer" type="AnimationPlayer" parent="Animations"]
+anims/Idle = SubResource( 3 )
+anims/Walk = SubResource( 4 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Hurtbox" parent="." instance=ExtResource( 1 )]
+position = Vector2( -0.117981, 8.9668 )
+collision_layer = 8
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2( 0, -13 )
+shape = SubResource( 5 )
+
+[node name="Stats" parent="." instance=ExtResource( 9 )]
+max_health = 4
+
+[node name="Hitbox" parent="." instance=ExtResource( 3 )]
+position = Vector2( -0.353951, 16.5178 )
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2( 0.0150433, -14.9062 )
+shape = SubResource( 7 )
+
+[node name="SoftCollision" parent="." instance=ExtResource( 7 )]
+
+[node name="CollisionShape2D" parent="SoftCollision" index="0"]
+shape = SubResource( 8 )
+
+[node name="WanderController" parent="." instance=ExtResource( 4 )]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Start = SubResource( 9 )
+anims/Stop = SubResource( 10 )
+
+[node name="PlayerDetectionZone" parent="." instance=ExtResource( 10 )]
+
+[node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
+scale = Vector2( 2, 2 )
+shape = SubResource( 11 )
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="invincibility_ended" from="Hurtbox" to="." method="_on_Hurtbox_invincibility_ended"]
+[connection signal="invincibility_started" from="Hurtbox" to="." method="_on_Hurtbox_invincibility_started"]
+[connection signal="no_health" from="Stats" to="." method="_on_Stats_no_health"]
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]
+[editable path="SoftCollision"]
+[editable path="PlayerDetectionZone"]

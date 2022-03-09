@@ -16,11 +16,22 @@ func slot_gui_input(event: InputEvent, slot: SlotClass):
 					slot.putIntoSlot(holding_item)
 					holding_item = null
 				else:
-					var temp_item = slot.item
-					slot.pickFromSlot()
-					temp_item.global_position = event.global_position
-					slot.putIntoSlot(holding_item)
-					holding_item = temp_item
+					if holding_item.ItemType != slot.item.ItemType:
+						var temp_item = slot.item
+						slot.pickFromSlot()
+						temp_item.global_position = event.global_position
+						slot.putIntoSlot(holding_item)
+						holding_item = temp_item
+					#Stacking
+					else:
+						var able_to_add = slot.item.max_StackSize - slot.item.StackSize
+						if able_to_add >= holding_item.StackSize:
+							slot.item.AddItems(holding_item.StackSize)
+							holding_item.queue_free()
+							holding_item = null
+						else:
+							slot.item.AddItems(able_to_add)
+							holding_item.RemoveItems(able_to_add)
 			elif slot.item:
 				holding_item = slot.item
 				slot.pickFromSlot()

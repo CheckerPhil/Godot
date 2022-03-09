@@ -136,6 +136,7 @@ margin_top = -14.3368
 margin_right = 41.8648
 margin_bottom = 25.6632
 text = "Discord"
+
 [connection signal="pressed" from="VBoxContainer/SingleplayerButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/MultiplayerButton" to="." method="_on_MultiplayerButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_OptionsButton_pressed"]

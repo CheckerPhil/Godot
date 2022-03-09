@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player.png" type="Texture" id=2]
@@ -65,44 +65,35 @@ tracks/0/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 5, 5 ), Vector2( 0.5, 0.5 ) ]
 }
 
+[sub_resource type="Animation" id=12]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Sword:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
 [sub_resource type="Animation" id=6]
 resource_name = "Sword Attack"
 length = 0.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("../Sword:scale")
+tracks/0/path = NodePath("../Sword:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
-tracks/0/enabled = false
+tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("../Sword:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, 60.0, 0.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("../Sword:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 5.75913, -5.71231 ), Vector2( 6.78922, -3.69895 ), Vector2( 5.75913, -5.71231 ) ]
+"values": [ 0.0, 360.0 ]
 }
 
 [sub_resource type="CapsuleShape2D" id=7]
@@ -157,9 +148,7 @@ tracks/0/keys = {
 "values": [ false ]
 }
 
-[node name="Player" type="KinematicBody2D" groups=[
-"Saved",
-]]
+[node name="Player" type="KinematicBody2D" groups=["Saved"]]
 collision_layer = 2
 script = ExtResource( 1 )
 
@@ -183,6 +172,7 @@ anims/Walk = SubResource( 4 )
 anims/Dash = SubResource( 5 )
 
 [node name="AttackPlayer" type="AnimationPlayer" parent="Animations"]
+anims/RESET = SubResource( 12 )
 "anims/Sword Attack" = SubResource( 6 )
 
 [node name="HitboxPivot" type="Position2D" parent="."]
@@ -223,10 +213,19 @@ anims/Stop = SubResource( 11 )
 wait_time = 0.5
 one_shot = true
 
-[node name="Sword" type="Sprite" parent="."]
+[node name="Sword" type="Node2D" parent="."]
+position = Vector2( 0, -4 )
+
+[node name="Node2D" type="Node2D" parent="Sword"]
+position = Vector2( 0, -4 )
+rotation = -1.5708
+
+[node name="SwordSprite" type="Sprite" parent="Sword/Node2D"]
 position = Vector2( 5.75913, -5.71231 )
-scale = Vector2( 0.5, 0.5 )
+scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 8 )
+offset = Vector2( 4, -13 )
+
 [connection signal="animation_finished" from="Animations/DashPlayer" to="." method="_on_DashPlayer_animation_finished"]
 [connection signal="animation_finished" from="Animations/AttackPlayer" to="." method="_on_AttackPlayer_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
@@ -235,5 +234,4 @@ texture = ExtResource( 8 )
 [connection signal="timeout" from="ShootAttackTimer" to="." method="_on_ShootAttackTimer_timeout"]
 
 [editable path="HitboxPivot/SwordHitbox"]
-
 [editable path="Hurtbox"]

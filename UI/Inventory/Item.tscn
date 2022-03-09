@@ -13,3 +13,13 @@ mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="StackCounter" type="Label" parent="."]
+margin_left = 17.0
+margin_top = 11.0
+margin_right = 57.0
+margin_bottom = 25.0
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}

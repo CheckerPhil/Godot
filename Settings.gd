@@ -5,6 +5,8 @@ var ai = true
 var multiplayer_start = false
 var AttackDash = false
 
+var difficulty = 1
+
 func _ready():
 	#START PROGRESS
 	#Set Title
