@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://UI/ControlsMenu.gd" type="Script" id=1]
+[ext_resource path="res://UI/Menu/ControlsMenu.gd" type="Script" id=1]
 [ext_resource path="res://UI/Button.png" type="Texture" id=2]
 
 [node name="ControlsMenu" type="Control"]
@@ -49,5 +49,6 @@ text = "Quit"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="pressed" from="QuitButton" to="." method="_on_TextureButton_pressed"]
 [connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]

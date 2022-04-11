@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Music and Sounds/Swipe.wav" type="AudioStream" id=7]
 [ext_resource path="res://Items/Sword.png" type="Texture" id=8]
 [ext_resource path="res://Shaders/WhiteColor.shader" type="Shader" id=9]
+[ext_resource path="res://Player/PickupZone.gd" type="Script" id=10]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 9 )
@@ -148,6 +149,8 @@ tracks/0/keys = {
 "values": [ false ]
 }
 
+[sub_resource type="CircleShape2D" id=13]
+
 [node name="Player" type="KinematicBody2D" groups=["Saved"]]
 collision_layer = 2
 script = ExtResource( 1 )
@@ -226,12 +229,24 @@ scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 8 )
 offset = Vector2( 4, -13 )
 
+[node name="PickupZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 128
+script = ExtResource( 10 )
+
+[node name="PickupShape" type="CollisionShape2D" parent="PickupZone"]
+position = Vector2( 0, -2 )
+scale = Vector2( 5, 5 )
+shape = SubResource( 13 )
+
 [connection signal="animation_finished" from="Animations/DashPlayer" to="." method="_on_DashPlayer_animation_finished"]
 [connection signal="animation_finished" from="Animations/AttackPlayer" to="." method="_on_AttackPlayer_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="invincibility_ended" from="Hurtbox" to="." method="_on_Hurtbox_invincibility_ended"]
 [connection signal="invincibility_started" from="Hurtbox" to="." method="_on_Hurtbox_invincibility_started"]
 [connection signal="timeout" from="ShootAttackTimer" to="." method="_on_ShootAttackTimer_timeout"]
+[connection signal="body_entered" from="PickupZone" to="PickupZone" method="_on_PickupZone_body_entered"]
+[connection signal="body_exited" from="PickupZone" to="PickupZone" method="_on_PickupZone_body_exited"]
 
 [editable path="HitboxPivot/SwordHitbox"]
 [editable path="Hurtbox"]

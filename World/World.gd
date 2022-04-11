@@ -2,8 +2,8 @@ extends Node2D
 
 onready var path = $DirtPathTileMap
 onready var singleplayer = $Player
-onready var stone_item = preload("res://Items/StoneItem.tscn")
 onready var timer = $Timer
+onready var deathscreen = $CanvasLayer/DeathScreen
 
 const CHUNK_WIDTH = 64
 const CHUNK_HEIGHT = 64
@@ -19,7 +19,8 @@ var open_simplex_noise
 export(String) var world_seed = "Hello Godot!"
 
 func _ready():
-	#if PlayerStats.health <= 0:
+	deathscreen.visible = false
+	PlayerStats.health = PlayerStats.max_health
 	
 	timer.start(30)
 		
@@ -44,20 +45,28 @@ func _ready():
 
 # warning-ignore:unused_argument
 func _physics_process(delta):
-	#Set Path
-	#if Input.is_mouse_button_pressed(2):
-		#var clicked_map_pos = path.world_to_map(get_global_mouse_position() / scale)
-		#path.set_cell(clicked_map_pos.x,clicked_map_pos.y, path.tile_set.get_tiles_ids()[0], false, false, false, path.get_cell_autotile_coord(clicked_map_pos.x, clicked_map_pos.y))
-		#path.update_bitmask_area(Vector2(clicked_map_pos.x, clicked_map_pos.y))
+	if PlayerStats.health <= 0:
+		deathscreen.visible = true
 	
-	#if Input.is_mouse_button_pressed(1):
-		#var clicked_map_pos = $TileMap.world_to_map(get_global_mouse_position() / scale)
-		#$TileMap.set_cell(clicked_map_pos.x,clicked_map_pos.y, TILES.grass, false, false, false, $TileMap.get_cell_autotile_coord(clicked_map_pos.x, clicked_map_pos.y))
-		#$TileMap.update_bitmask_area(Vector2(clicked_map_pos.x, clicked_map_pos.y))
-		#var scene = load("res://Items/StoneItem.tscn")
-		#var item = scene.instance()
-		#add_child(item)
-		pass
+	#Set Path
+	if Input.is_mouse_button_pressed(2):
+		var clicked_map_pos = path.world_to_map(get_global_mouse_position() / scale)
+		path.set_cell(clicked_map_pos.x,clicked_map_pos.y, path.tile_set.get_tiles_ids()[0], false, false, false, path.get_cell_autotile_coord(clicked_map_pos.x, clicked_map_pos.y))
+		path.update_bitmask_area(Vector2(clicked_map_pos.x, clicked_map_pos.y))
+	
+	if Input.is_mouse_button_pressed(1):
+		var clicked_map_pos = $TileMap.world_to_map(get_global_mouse_position() / scale)
+		var id = $TileMap.get_cellv(clicked_map_pos)
+		#print($TileMap.tile_set.tile_get_name(id))
+		if($TileMap.tile_set.tile_get_name(id) == "CliffTileset.png 0"):
+			$TileMap.set_cell(clicked_map_pos.x,clicked_map_pos.y, TILES.grass, false, false, false, $TileMap.get_cell_autotile_coord(clicked_map_pos.x, clicked_map_pos.y))
+			$TileMap.update_bitmask_area(Vector2(clicked_map_pos.x, clicked_map_pos.y))
+			var scene = load("res://Items/itemDrop.tscn")
+			var item = scene.instance()
+			item.position.x = get_global_mouse_position().x
+			item.position.y = get_global_mouse_position().y
+			add_child(item)
+			pass
 
 
 func create_player(id):
@@ -71,7 +80,7 @@ func create_player(id):
 func _generate_world():
 	for x in CHUNK_WIDTH:
 		for y in CHUNK_HEIGHT:
-			#$TileMap.set_cellv(Vector2(x - CHUNK_WIDTH / 2, y - CHUNK_HEIGHT / 2), _get_tile_index(open_simplex_noise.get_noise_2d(float(x), float(y))))
+			$TileMap.set_cellv(Vector2(x - CHUNK_WIDTH / 2, y - CHUNK_HEIGHT / 2), _get_tile_index(open_simplex_noise.get_noise_2d(float(x), float(y))))
 			pass
 	$TileMap.update_bitmask_region()
 

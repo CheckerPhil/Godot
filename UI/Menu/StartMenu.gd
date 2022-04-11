@@ -10,7 +10,7 @@ func _on_StartButton_pressed():
 
 
 func _on_OptionsButton_pressed():
-	get_tree().change_scene("res://UI/OptionsMenu.tscn")
+	get_tree().change_scene("res://UI/Menu/OptionsMenu.tscn")
 
 
 func _on_QuitButton_pressed():
@@ -23,4 +23,4 @@ func _on_TextureButton_pressed():
 
 
 func _on_MultiplayerButton_pressed():
-	get_tree().change_scene("res://UI/MultiplayerMenu.tscn")
+	get_tree().change_scene("res://UI/Menu/MultiplayerMenu.tscn")

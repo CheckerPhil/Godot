@@ -22,3 +22,9 @@ func _ready():
 	print("GPU: " + VisualServer.get_video_adapter_name())
 	print("----------------------")
 
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_CRASH:
+		get_tree().change_scene("res://UI/Menu/StartMenu.tscn")
+		print("Game Chrashed. Please send this log file to a developer.")
+	elif what == MainLoop.NOTIFICATION_OS_MEMORY_WARNING:
+		print("Memory high! OS Memory warning send.")

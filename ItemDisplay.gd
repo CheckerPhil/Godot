@@ -22,6 +22,18 @@ func _ready():
 		$StackCounter.visible = true;
 		$StackCounter.text = String(StackSize)
 
+func setItem(nm, qt):
+	ItemType = nm
+	StackSize = qt
+	$TextureRect.texture = load("res://Items/" + ItemType + ".png")
+	
+	var stack_size = StackSize
+	if stack_size == 1:
+		$StackCounter.visible = false
+	else:
+		$StackCounter.visible = true
+		$StackCounter.text = String(StackSize)
+
 func AddItems(var to_add_stacksize):
 	StackSize += to_add_stacksize
 	$StackCounter.visible = true;

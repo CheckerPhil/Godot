@@ -19,13 +19,13 @@ func _on_ContinueButton_pressed():
 func _on_OptionsButton_pressed():
 	get_tree().paused = false
 # warning-ignore:return_value_discarded
-	get_tree().change_scene("res://UI/OptionsMenu.tscn")
+	get_tree().change_scene("res://UI/Menu/OptionsMenu.tscn")
 	set_visible(false)
 
 func _on_MenuButton_pressed():
 	get_tree().paused = false
 # warning-ignore:return_value_discarded
-	get_tree().change_scene("res://UI/StartMenu.tscn")
+	get_tree().change_scene("res://UI/Menu/StartMenu.tscn")
 	set_visible(false)
 
 func set_visible(is_visible):

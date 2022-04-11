@@ -110,6 +110,11 @@ func move_state(delta):
 	if Input.is_action_just_pressed("attack"):
 		swordHitboxCollision.disabled = false;
 		attackPlayer.play("Sword Attack")
+	
+	if $PickupZone.items_in_range.size() > 0:
+		var pickup_item = $PickupZone.items_in_range.values()[0]
+		pickup_item.pick_up_item(self)
+		$PickupZone.items_in_range.erase(pickup_item)
 
 func roll_state(_delta):
 	velocity = roll_vector * ROLL_SPEED

@@ -7,7 +7,7 @@ func _ready():
 	$ExitButton.grab_focus()
 
 func _on_ExitButton_pressed():
-	get_tree().change_scene("res://UI/OptionsMenu.tscn")
+	get_tree().change_scene("res://UI/Menu/OptionsMenu.tscn")
 
 func _on_FullscreenCheckbox_pressed():
 	OS.window_fullscreen = !OS.window_fullscreen

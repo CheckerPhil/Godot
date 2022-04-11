@@ -1,14 +1,14 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://UI/StartMenu.gd" type="Script" id=1]
-[ext_resource path="res://UI/Button.png" type="Texture" id=2]
+[ext_resource path="res://UI/Button.png" type="Texture" id=1]
+[ext_resource path="res://UI/Menu/StartMenu.gd" type="Script" id=2]
 
 [node name="StartMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -0.396847
 margin_right = -0.396851
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -43,7 +43,7 @@ margin_right = 100.0
 margin_bottom = 32.0
 focus_neighbour_top = NodePath("../QuitButton")
 focus_neighbour_bottom = NodePath("../OptionsButton")
-texture_normal = ExtResource( 2 )
+texture_normal = ExtResource( 1 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/SingleplayerButton"]
 margin_left = 11.8751
@@ -62,7 +62,7 @@ margin_right = 100.0
 margin_bottom = 68.0
 focus_neighbour_top = NodePath("../QuitButton")
 focus_neighbour_bottom = NodePath("../OptionsButton")
-texture_normal = ExtResource( 2 )
+texture_normal = ExtResource( 1 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/MultiplayerButton"]
 margin_left = 15.1787
@@ -81,7 +81,7 @@ margin_right = 100.0
 margin_bottom = 104.0
 focus_neighbour_top = NodePath("../StartButton")
 focus_neighbour_bottom = NodePath("../QuitButton")
-texture_normal = ExtResource( 2 )
+texture_normal = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -103,7 +103,7 @@ margin_right = 100.0
 margin_bottom = 140.0
 focus_neighbour_top = NodePath("../OptionsButton")
 focus_neighbour_bottom = NodePath("../StartButton")
-texture_normal = ExtResource( 2 )
+texture_normal = ExtResource( 1 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/QuitButton"]
 margin_left = 35.0
@@ -121,7 +121,7 @@ margin_left = -1.0
 margin_top = 151.0
 margin_right = 99.0
 margin_bottom = 191.0
-texture_normal = ExtResource( 2 )
+texture_normal = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

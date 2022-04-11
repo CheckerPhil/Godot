@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://UI/OptionsMenu.gd" type="Script" id=1]
+[ext_resource path="res://UI/Menu/OptionsMenu.gd" type="Script" id=1]
 [ext_resource path="res://UI/Button.png" type="Texture" id=2]
 
 [node name="OptionsMenu" type="Control"]
@@ -85,6 +85,7 @@ text = "Options"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="pressed" from="VBoxContainer/ControlsButton" to="." method="_on_ControlsButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/GraphicsButton" to="." method="_on_GraphicsButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/ExitButton" to="." method="_on_ExitButton_pressed"]

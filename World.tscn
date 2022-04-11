@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://World/Bush.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -12,8 +12,11 @@
 [ext_resource path="res://World/World.gd" type="Script" id=10]
 [ext_resource path="res://DirtCliffTileMap.tscn" type="PackedScene" id=11]
 [ext_resource path="res://FpsCounter.gd" type="Script" id=12]
-[ext_resource path="res://Ambient Lightning.gd" type="Script" id=13]
+[ext_resource path="res://UI/DeathScreen.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Villager/Villager.tscn" type="PackedScene" id=14]
+[ext_resource path="res://UI/Inventory/Inventory.tscn" type="PackedScene" id=15]
+[ext_resource path="res://UI/CanvasLayer.gd" type="Script" id=16]
+[ext_resource path="res://Items/itemDrop.tscn" type="PackedScene" id=17]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -567,10 +570,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Ambient Lightning" type="CanvasModulate" parent="."]
-color = Color( 0.964706, 0.941176, 0.941176, 1 )
-script = ExtResource( 13 )
-
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Player" parent="YSort" instance=ExtResource( 2 )]
@@ -652,6 +651,7 @@ position = Vector2( 82, 65 )
 position = Vector2( 100, 10 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource( 16 )
 
 [node name="HealthUI" parent="CanvasLayer" instance=ExtResource( 8 )]
 
@@ -665,9 +665,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Inventory" parent="CanvasLayer" instance=ExtResource( 15 )]
+visible = false
+
+[node name="DeathScreen" parent="CanvasLayer" instance=ExtResource( 13 )]
+visible = false
+
 [node name="Timer" type="Timer" parent="."]
 process_mode = 0
 wait_time = 5.0
 script = ExtResource( 4 )
+
+[node name="itemDrop" parent="." instance=ExtResource( 17 )]
+position = Vector2( 328, 39 )
+
+[node name="itemDrop2" parent="." instance=ExtResource( 17 )]
+position = Vector2( 247, -59 )
+
+[node name="itemDrop3" parent="." instance=ExtResource( 17 )]
+position = Vector2( 328, -33 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
