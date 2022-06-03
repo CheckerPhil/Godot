@@ -15,4 +15,4 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           issue-message: "Thanks for you issue. We will look at it soon."
-          footer: "Please mention your specs and your Operation System"
+          footer: "Please mention your specs and your Operation System. Please also attach a log file."
