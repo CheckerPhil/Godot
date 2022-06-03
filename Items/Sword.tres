@@ -6,4 +6,5 @@
 [resource]
 script = ExtResource( 1 )
 name = "Sword"
+amount = 0
 texture = ExtResource( 2 )

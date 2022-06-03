@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Resource",
+"base": "Reference",
 "class": "Item",
 "language": "GDScript",
 "path": "res://Items/Item.gd"
@@ -32,7 +32,7 @@ PlayerStats="*res://Player/PlayerStats.tscn"
 PauseMenu="*res://UI/Menu/Pause.tscn"
 Settings="*res://Settings.tscn"
 Autoload="*res://autoload.gd"
-PlayerInventory="*res://UI/Inventory/PlayerInventory.gd"
+Inventory="*res://UI/Inventory/Inventory.gd"
 
 [display]
 
@@ -157,8 +157,13 @@ command={
 
 file_logging/enable_file_logging=true
 
+[physics]
+
+2d/thread_model=2
+
 [rendering]
 
 2d/snapping/use_gpu_pixel_snap=true
+threads/thread_model=2
 environment/default_environment="res://default_env.tres"
 quality/2d/use_pixel_snap=true

@@ -1,31 +1,24 @@
 extends Panel
 
-var ItemClass = preload("res://UI/Inventory/Item.tscn")
-var item = null
+var ItemClass = preload("res://Items/Item.tscn")
+#ar item = null
 
-func _ready():
-	#if randi() % 2 == 0:
-		#item = ItemClass.instance()
-		#add_child(item)
-		pass
+#func _ready():
+	#item = ItemClass.instance()
+	#item.set_texture("Stone")
+	#add_child(item)
 
-func pickFromSlot():
-	remove_child(item)
-	var inventoryNode = find_parent("Inventory")
-	inventoryNode.add_child(item)
-	item = null
-
-func putIntoSlot(new_item):
-	item = new_item
-	item.position = Vector2(0, 0)
-	var inventoryNode = find_parent("Inventory")
-	inventoryNode.remove_child(item)
+func AddItem(var item_name, var item_amount):
+	var item = ItemClass.instance()
+	item.set_texture(item_name)
+	item.set_amount(item_amount)
 	add_child(item)
 
-func initialize_item(item_name, item_quantity):
-	if item == null:
-		item = ItemClass.instance()
-		add_child(item)
-		item.setItem(item_name, item_quantity)
-	else:
-		item.setItem(item_name, item_quantity)
+
+#func _physics_process(delta):
+	#for i in Inventory.inventory:
+		#for a in get_children():
+			#if(i.name == a.itemname):
+				#print(i.name)
+				#print(i.amount)
+				#a.set_amount(i.amount)

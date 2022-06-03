@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=2]
+[gd_scene load_steps=75 format=2]
 
 [ext_resource path="res://World/Bush.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://UI/Inventory/Inventory.tscn" type="PackedScene" id=15]
 [ext_resource path="res://UI/CanvasLayer.gd" type="Script" id=16]
 [ext_resource path="res://Items/itemDrop.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Blocks/Chest.tscn" type="PackedScene" id=18]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -645,6 +646,8 @@ position = Vector2( 126, 114 )
 [node name="Villager2" parent="YSort" instance=ExtResource( 14 )]
 position = Vector2( 82, 65 )
 
+[node name="Chest" parent="YSort" instance=ExtResource( 18 )]
+
 [node name="Trees" type="YSort" parent="."]
 
 [node name="Tree" parent="Trees" instance=ExtResource( 9 )]
@@ -665,19 +668,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Inventory" parent="CanvasLayer" instance=ExtResource( 15 )]
-visible = false
-
 [node name="DeathScreen" parent="CanvasLayer" instance=ExtResource( 13 )]
 visible = false
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Inventory" parent="CanvasLayer" instance=ExtResource( 15 )]
+visible = false
+
+[node name="TextureRect" parent="CanvasLayer/Inventory" index="0"]
+visible = true
+
+[node name="GridContainer" parent="CanvasLayer/Inventory" index="1"]
+visible = true
+
+[node name="Timer" type="Timer" parent="CanvasLayer"]
+one_shot = true
+
+[node name="Spawner" type="Timer" parent="."]
 process_mode = 0
-wait_time = 5.0
+wait_time = 0.5
 script = ExtResource( 4 )
 
 [node name="itemDrop" parent="." instance=ExtResource( 17 )]
 position = Vector2( 328, 39 )
+
+[node name="itemDrop4" parent="." instance=ExtResource( 17 )]
+position = Vector2( 392, 44 )
 
 [node name="itemDrop2" parent="." instance=ExtResource( 17 )]
 position = Vector2( 247, -59 )
@@ -685,4 +700,7 @@ position = Vector2( 247, -59 )
 [node name="itemDrop3" parent="." instance=ExtResource( 17 )]
 position = Vector2( 328, -33 )
 
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="CanvasLayer/Timer" to="CanvasLayer" method="_on_Timer_timeout"]
+[connection signal="timeout" from="Spawner" to="." method="_on_Timer_timeout"]
+
+[editable path="CanvasLayer/Inventory"]

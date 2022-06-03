@@ -26,6 +26,7 @@ onready var attackPlayer = $Animations/AttackPlayer
 onready var swordHitbox = $HitboxPivot/SwordHitbox
 onready var swordHitboxCollision = $HitboxPivot/SwordHitbox/CollisionShape2D
 onready var hurtbox = $Hurtbox
+onready var hurtboxCollision = $Hurtbox/CollisionShape2D
 onready var blinkAnimationPlayer = $BlinkAnimationPlayer
 onready var sword: Node2D = get_node("Sword")
 
@@ -108,7 +109,7 @@ func move_state(delta):
 		state = ROLL
 	
 	if Input.is_action_just_pressed("attack"):
-		swordHitboxCollision.disabled = false;
+		swordHitboxCollision.disabled = false
 		attackPlayer.play("Sword Attack")
 	
 	if $PickupZone.items_in_range.size() > 0:
@@ -121,8 +122,10 @@ func roll_state(_delta):
 	if Settings.AttackDash == true:
 		swordHitboxCollision.disabled = false;
 	rollPlayer.play("Dash")
+	$CPUParticles2D.emitting = true
+	$CPUParticles2D.rotation_degrees = velocity.angle()
 	#animationState.travel("Roll")
-	hurtbox.start_invincibility(0.5)
+	hurtbox.start_invincibility(0.75)
 	move()
 
 func attack_state(_delta):
@@ -140,6 +143,7 @@ func move():
 func _on_DashPlayer_animation_finished(anim_name):
 	velocity = velocity * 0.8
 	swordHitboxCollision.disabled = true;
+	$CPUParticles2D.emitting = false
 	state = MOVE
 
 func _on_AttackPlayer_animation_finished(anim_name):

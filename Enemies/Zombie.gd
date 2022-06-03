@@ -83,13 +83,14 @@ func pick_random_state(state_list):
 
 func _on_Hurtbox_area_entered(area):
 	stats.health -= area.damage
-	knockback = area.knockback_vector * 150
+	knockback = area.knockback_vector * 200
 	var camera = get_node("/root/World/YSort/Player/Camera2D")
 	camera.set_offset(Vector2( \
 		rand_range(-1.0, 1.0) * shake_amount, \
 		rand_range(-1.0, 1.0) * shake_amount \
 	))
 	hurtbox.create_hit_effect()
+	$Animations/HitPlayer.play("Hit")
 	hurtbox.start_invincibility(0.4)
 
 func _on_Stats_no_health():

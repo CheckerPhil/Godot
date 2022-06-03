@@ -53,3 +53,7 @@ shape = SubResource( 1 )
 autoplay = "float"
 anims/RESET = SubResource( 2 )
 anims/float = SubResource( 3 )
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+process_parent = true
+physics_process_parent = true

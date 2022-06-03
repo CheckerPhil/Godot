@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player.png" type="Texture" id=2]
@@ -66,6 +66,9 @@ tracks/0/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 5, 5 ), Vector2( 0.5, 0.5 ) ]
 }
 
+[sub_resource type="Animation" id=14]
+length = 0.001
+
 [sub_resource type="Animation" id=12]
 length = 0.001
 tracks/0/type = "value"
@@ -101,8 +104,8 @@ tracks/0/keys = {
 height = 12.0
 
 [sub_resource type="CapsuleShape2D" id=8]
-radius = 5.02104
-height = 7.29734
+radius = 3.15254
+height = 5.88628
 
 [sub_resource type="Animation" id=9]
 
@@ -149,6 +152,10 @@ tracks/0/keys = {
 "values": [ false ]
 }
 
+[sub_resource type="Gradient" id=15]
+offsets = PoolRealArray( 0, 0.333333, 0.873874 )
+colors = PoolColorArray( 0, 0, 0, 1, 0.261261, 0.261261, 0.261261, 1, 1, 1, 1, 1 )
+
 [sub_resource type="CircleShape2D" id=13]
 
 [node name="Player" type="KinematicBody2D" groups=["Saved"]]
@@ -173,6 +180,7 @@ anims/Walk = SubResource( 4 )
 
 [node name="DashPlayer" type="AnimationPlayer" parent="Animations"]
 anims/Dash = SubResource( 5 )
+anims/RESET = SubResource( 14 )
 
 [node name="AttackPlayer" type="AnimationPlayer" parent="Animations"]
 anims/RESET = SubResource( 12 )
@@ -229,6 +237,13 @@ scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 8 )
 offset = Vector2( 4, -13 )
 
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Sword/Node2D/SwordSprite"]
+position = Vector2( 6.05847, -14.6966 )
+emission_shape = 1
+emission_sphere_radius = 7.92
+color = Color( 0.596078, 0.164706, 0.164706, 1 )
+color_ramp = SubResource( 15 )
+
 [node name="PickupZone" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 128
@@ -238,6 +253,24 @@ script = ExtResource( 10 )
 position = Vector2( 0, -2 )
 scale = Vector2( 5, 5 )
 shape = SubResource( 13 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+rotation = 1.5708
+lifetime = 0.5
+explosiveness = 0.08
+randomness = 0.27
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2( 0, 1 )
+initial_velocity = 500.0
+radial_accel = 43.24
+scale_amount = 2.0
+scale_amount_random = 1.0
+color = Color( 0.176471, 0.556863, 0.964706, 1 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [connection signal="animation_finished" from="Animations/DashPlayer" to="." method="_on_DashPlayer_animation_finished"]
 [connection signal="animation_finished" from="Animations/AttackPlayer" to="." method="_on_AttackPlayer_animation_finished"]

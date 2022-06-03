@@ -7,9 +7,6 @@
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="GraphicText" type="RichTextLabel" parent="."]
 anchor_left = 0.5
@@ -47,6 +44,25 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="FXAACheckbox" type="CheckBox" parent="."]
+margin_left = -1.0
+margin_top = 121.0
+margin_right = 23.0
+margin_bottom = 145.0
+text = "FFXA"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MSSADropdown" type="OptionButton" parent="."]
+margin_left = 7.0
+margin_top = 94.0
+margin_right = 97.0
+margin_bottom = 114.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ExitButton" type="TextureButton" parent="."]
 anchor_left = 0.5
 anchor_top = 1.0
@@ -70,6 +86,9 @@ text = "Exit"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="pressed" from="FullscreenCheckbox" to="." method="_on_FullscreenCheckbox_pressed"]
 [connection signal="pressed" from="VsyncCheckbox" to="." method="_on_VsyncCheckbox_pressed"]
+[connection signal="pressed" from="FXAACheckbox" to="." method="_on_FXAACheckbox_pressed"]
+[connection signal="item_selected" from="MSSADropdown" to="." method="_on_MSSADropdown_item_selected"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_ExitButton_pressed"]

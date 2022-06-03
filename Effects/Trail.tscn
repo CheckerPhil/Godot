@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Player/Trail.gd" type="Script" id=1]
+
+[node name="Trail" type="Line2D"]
+rotation = 2.27374e-13
+default_color = Color( 0.176471, 0.839216, 0.870588, 1 )
+round_precision = 50
+script = ExtResource( 1 )
