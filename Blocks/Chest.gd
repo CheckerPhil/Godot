@@ -1,4 +1,4 @@
-extends Control
+extends StaticBody2D
 
 var inventory = []
 var itemnames = []
@@ -47,3 +47,5 @@ func item_add(var item_name, var amount):
 	item.name = item_name
 	item.amount = amount
 	inventory.insert(inventory.size(),item)
+
+

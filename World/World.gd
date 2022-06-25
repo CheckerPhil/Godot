@@ -36,12 +36,12 @@ func _ready():
 	open_simplex_noise = OpenSimplexNoise.new()
 	open_simplex_noise.seed = world_seed.hash()
 	
-	open_simplex_noise.octaves = 4
-	open_simplex_noise.period = 15
+	open_simplex_noise.octaves = 4 +5
+	open_simplex_noise.period = 15 +10
 	open_simplex_noise.lacunarity = 1.5
 	open_simplex_noise.persistence = 0.75
 	
-	#_generate_world()
+	_generate_world()
 
 # warning-ignore:unused_argument
 func _physics_process(delta):
@@ -65,6 +65,7 @@ func _physics_process(delta):
 			var item = scene.instance()
 			item.position.x = get_global_mouse_position().x
 			item.position.y = get_global_mouse_position().y
+			item.item_name = "Stone"
 			add_child(item)
 			pass
 		#$TileMap.set_cell(clicked_map_pos.x,clicked_map_pos.y, TILES.grass, false, false, false, $TileMap.get_cell_autotile_coord(clicked_map_pos.x, clicked_map_pos.y))
