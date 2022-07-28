@@ -5,6 +5,12 @@ var itemnames = []
 
 var ItemClass = preload("res://Items/Item.tscn")
 
+var holding_item = null
+
+#func _ready():
+	#for inv_slot in $GridContainer.get_children():
+		#inv_slot.connect("gui_input", self, "slot_gui_input")
+
 func add_item(var item_name, var amount):
 	if(inventory.size() > 0):
 		var loops =0
@@ -47,3 +53,9 @@ func item_add(var item_name, var amount):
 	item.name = item_name
 	item.amount = amount
 	inventory.insert(inventory.size(),item)
+
+func slot_gui_input(event: InputEvent):
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_LEFT && event.pressed:
+			if holding_item == null:
+				pass

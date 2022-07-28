@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 const EnemyDeathEffect = preload("res://Effects/EnemyDeathEffect.tscn")
+const EnemyBloodEffect = preload("res://Effects/Blood.tscn")
 
 export var ACCELERATION = 300
 export var MAX_SPEED = 50
@@ -98,6 +99,9 @@ func _on_Stats_no_health():
 	var enemyDeathEffect = EnemyDeathEffect.instance()
 	get_parent().add_child(enemyDeathEffect)
 	enemyDeathEffect.global_position = global_position
+	var enemyBloodEffect = EnemyBloodEffect.instance()
+	get_parent().add_child(enemyBloodEffect)
+	enemyBloodEffect.global_position = global_position
 	Settings.difficulty =+ 1
 
 

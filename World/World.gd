@@ -41,7 +41,7 @@ func _ready():
 	open_simplex_noise.lacunarity = 1.5
 	open_simplex_noise.persistence = 0.75
 	
-	_generate_world()
+	#_generate_world()
 
 # warning-ignore:unused_argument
 func _physics_process(delta):
