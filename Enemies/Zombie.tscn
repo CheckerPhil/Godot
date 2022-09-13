@@ -184,14 +184,14 @@ shape = SubResource( 8 )
 anims/Start = SubResource( 9 )
 anims/Stop = SubResource( 10 )
 
-[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
-process_parent = true
-physics_process_parent = true
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="invincibility_ended" from="Hurtbox" to="." method="_on_Hurtbox_invincibility_ended"]
 [connection signal="invincibility_started" from="Hurtbox" to="." method="_on_Hurtbox_invincibility_started"]
 [connection signal="no_health" from="Stats" to="." method="_on_Stats_no_health"]
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 
 [editable path="Hurtbox"]
 [editable path="PlayerDetectionZone"]

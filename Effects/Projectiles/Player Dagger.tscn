@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Items/Sword.png" type="Texture" id=1]
 [ext_resource path="res://Overlap/Hitbox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Effects/Projectiles/Player Dagger.gd" type="Script" id=3]
 [ext_resource path="res://Assets/light.png" type="Texture" id=4]
+[ext_resource path="res://Effects/Projectiles/Player Dagger Particle.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -49,6 +50,10 @@ shadow_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 anims/Shoot = SubResource( 2 )
+
+[node name="Particles2D" parent="." index="5" instance=ExtResource( 5 )]
+position = Vector2( -9, 0 )
+rotation = 3.14159
 
 [connection signal="area_entered" from="." to="." method="_on_Player_Dagger_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_Player_Dagger_body_entered"]

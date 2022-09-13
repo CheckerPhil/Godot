@@ -30,7 +30,7 @@ onready var hurtboxCollision = $Hurtbox/CollisionShape2D
 onready var blinkAnimationPlayer = $BlinkAnimationPlayer
 onready var sword: Node2D = get_node("Sword")
 
-export(PackedScene) var DAGGER: PackedScene = preload("res://Effects/Projectiles/Player Dagger.tscn")
+export(PackedScene) var DAGGER: PackedScene = preload("res://Effects/Projectiles/Fireball.tscn")
 onready var shoot_attack_timer = $ShootAttackTimer
 
 func _ready():
@@ -172,7 +172,7 @@ func throw_dagger(dagger_direction: Vector2):
 		var dagger_rotation = dagger_direction.angle()
 		dagger.rotation = dagger_rotation
 		
-		shoot_attack_timer.start()
+		#shoot_attack_timer.start()
 
 #Local Multiplayer
 func initialize(id):
@@ -189,3 +189,4 @@ func get_save_stats():
 		'x_Pos' : global_transform.origin.x,
 		'y_Pos' : global_transform.origin.y,
 	}
+

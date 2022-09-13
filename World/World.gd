@@ -41,7 +41,7 @@ func _ready():
 	open_simplex_noise.lacunarity = 1.5
 	open_simplex_noise.persistence = 0.75
 	
-	#_generate_world()
+	_generate_world()
 
 # warning-ignore:unused_argument
 func _physics_process(delta):
@@ -67,6 +67,13 @@ func _physics_process(delta):
 			item.position.y = get_global_mouse_position().y
 			item.item_name = "Stone"
 			add_child(item)
+			var particlescene = load("res://Effects/Blocks/DirtBreak.tscn")
+			var dirtbreak = particlescene.instance()
+			dirtbreak.position.x = get_global_mouse_position().x
+			dirtbreak.position.y = get_global_mouse_position().y
+			add_child(dirtbreak)
+			
+			
 			pass
 		#$TileMap.set_cell(clicked_map_pos.x,clicked_map_pos.y, TILES.grass, false, false, false, $TileMap.get_cell_autotile_coord(clicked_map_pos.x, clicked_map_pos.y))
 		#$TileMap.update_bitmask_area(Vector2(clicked_map_pos.x, clicked_map_pos.y))

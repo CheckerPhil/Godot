@@ -29,6 +29,7 @@ onready var animationPlayer = $AnimationPlayer
 onready var walkPlayer = $Animations/WalkPlayer
 
 func _ready():
+	visible = false
 	state = pick_random_state([IDLE, WANDER])
 
 func _physics_process(delta):
@@ -111,3 +112,11 @@ func _on_Hurtbox_invincibility_started():
 
 func _on_Hurtbox_invincibility_ended():
 	animationPlayer.play("Stop")
+
+
+func _on_VisibilityNotifier2D_screen_entered():
+	visible = true
+
+
+func _on_VisibilityNotifier2D_screen_exited():
+	visible = false
